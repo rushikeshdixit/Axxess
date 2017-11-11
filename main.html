@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Fingers and Toes</title>
+</head>
+
+<body>
+  <script>
+    var myVarList = [];
+    // startCount function is used to initialize the count for the counter
+    // It adds color to the 'fingers' and 'toes' and the increment time is set to 1 second
+    function startCount() {
+      var i = 0;
+      var myVar = window.setInterval(function() {
+        myFunc()
+      }, 1000);
+      myVarList.push(myVar);
+
+      function myFunc() {
+        var number = document.getElementById('inputText').value;
+        console.log(number);
+        if (i < number) {
+          i = i % 360 + 1;
+
+          console.log("after startcount");
+          if (i % 15 == 0) {
+            document.getElementById("fingers").style.color = "#000000";
+            document.getElementById("toes").style.color = "#000000";
+            document.getElementById("fingers").style.color = "#f5ff1d";
+            document.getElementById("toes").style.color = "#f5ff1d";
+          } else if (i % 3 == 0) {
+            document.getElementById("fingers").style.color = "#000000";
+            document.getElementById("toes").style.color = "#000000";
+            document.getElementById("fingers").style.color = "#25ff22";
+          } else if (i % 5 == 0) {
+            document.getElementById("fingers").style.color = "#000000";
+            document.getElementById("toes").style.color = "#000000";
+            document.getElementById("toes").style.color = "#ff0000";
+          } else {
+            document.getElementById("fingers").style.color = "#000000";
+            document.getElementById("toes").style.color = "#000000";
+
+          }
+          document.getElementById("counterText").innerHTML = i;
+          //break;
+        } else {
+          clearInterval(myVar);
+        }
+      }
+    }
+
+    // resets the counter to '0' and gets rid of the color from 'fingers' and 'toes'
+    function reset() {
+      i = 0;
+      document.getElementById("counterText").innerHTML = i;
+      document.getElementById("fingers").style.color = "#000000";
+      document.getElementById("toes").style.color = "#000000";
+      document.getElementById('inputText').value = "";
+    }
+
+    // restarts the counter and clears all the setInterval functions
+    // it can be used any time while the counter is running
+    function restart() {
+      for (var i = myVarList.length - 1; i >= 0; i--) {
+        clearInterval(myVarList[i]);
+        myVarList.pop();
+      }
+      i = 0;
+      document.getElementById("counterText").innerHTML = i;
+      //document.getElementById("counterText").innerHTML = 0;
+      startCount();
+    }
+  </script>
+
+  <h2 class="center">Game by Rushikesh Dixit - Fingers & Toes</h2>
+  <hr>
+  <p>Counter : <span id="counterText">0</span></p>
+  <label>Enter the number : <input type="text" id="inputText"></label>
+  <button onclick="startCount()">Start count</button>
+  <!-- clears the input -->
+  <button onclick="reset()">Reset</button>
+  <!-- Restarts the count -->
+  <button onclick="restart()">Restart</button>
+  <p id="fingers">Fingers</p>
+  <p id="toes">Toes</p>
+</body>
+
+</html>
